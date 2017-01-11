@@ -134,15 +134,9 @@ function! Start_common_settings()
     set showcmd
 
     " Show color of syntax
-    " If it do not drow color, please activate \"colorscheme molokai"
-    " Maybe you can change color of syntax to edit ~/.vim/colors/molokai.vim
-    " ref: Arch linuxでのvimのカラースキーム設定
-    "       (http://qiita.com/dyony/items/3e99e310f42529140e37)
-    "
-    " colorscheme molokai
     set t_Co=256
     syntax on
-    highlight Comment ctermfg =darkblue
+    highlight Comment ctermfg =240
 
     " Show tab, space, new line
     set list
