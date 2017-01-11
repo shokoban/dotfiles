@@ -1,0 +1,269 @@
+﻿" =============================================================
+" = This script is aiming for cross-platform, but I have not  =
+" = been able to complete. Although it works normally on ubu- =
+" = ntu OS, it does not work properly on windows OS. Please   =
+" = be careful when using this .vimrc.                        =
+" =============================================================
+
+
+
+
+" =============================================================
+" =                        Initialize.                        =
+" =============================================================
+
+if has('vim_starting')
+    filetype off
+    set encoding =utf-8
+endif
+
+
+
+" =============================================================
+" =                 Neobundle.vim Settings.                   =
+" =============================================================
+
+function! Start_to_set_plugins()
+    " Set directorys of being neobundle.vim
+    let s:neobundle_dir = expand('~/.vim/plugins/neobundle')
+    let s:neobundle_repo_dir = s:neobundle_dir . '/repos/github.com/Shougo/neobundle.vim'
+
+    " Execute git clone automatically, if neobundle.vim do not exist. 
+    if !isdirectory(s:neobundle_repo_dir)
+        execute '!git clone https://github.com/Shougo/neobundle.vim' s:neobundle_repo_dir
+    endif
+    execute 'set runtimepath^=' . s:neobundle_repo_dir
+
+    " Start setting of NeoBundle.vim from here.
+    call neobundle#begin(s:neobundle_dir)
+
+    " The version of the NeoBundle.vim managed by NeoBundle.vim own.
+    NeoBundleFetch 'Shougo/neobundle.vim'
+
+    " Write plugins that you want to install below.
+    NeoBundle 'Shougo/unite.vim'
+
+    " Auto
+    NeoBundle 'itchyny/lightline.vim'
+    let g:lightline = {
+                \ 'colorscheme': 'landscape'
+                \ }
+    " For lightline.vim. use 256 colors.
+    set t_Co=256
+    " Type :NERDTree to run
+    NeoBundle 'scrooloose/nerdtree'
+    " Auto
+    NeoBundle 'Townk/vim-autoclose'
+    " Type :QuickRun to run.
+    NeoBundle 'thinca/vim-quickrun'
+    " Type :EasyAlign {foo} to run
+    "   \Exanple: :EasyAlign *=
+    "             :EasyAlign **=
+    NeoBundle 'junegunn/vim-easy-align'
+    " Auto 
+    NeoBundle 'Shougo/neosnippet'
+    NeoBundle 'Shougo/neosnippet-snippets'
+    NeoBundle "Shougo/neocomplete.vim"
+
+    " End setting of NeoBundle.vim.
+    call neobundle#end()
+
+    " Activate plugins.
+    filetype plugin indent on
+
+    " When executeing vim, install plugins that is not installed.
+    NeoBundleCheck
+endfunction
+
+
+
+" =============================================================
+" =                    No plugin Settings.                    =
+" =============================================================
+
+function! Start_no_plugin_setting()
+    " Show color of syntax
+    syntax on
+    highlight Comment ctermfg =darkblue
+
+    " Set information in statusline
+    set statusline =%<%F\ %m%r%h%w%=[%n][%{&ff}][%{(&fenc!=''?&fenc:&enc)}]%y[%l/%L]
+
+    " Change statusline color, Once Enter normal mode.
+    let g:hi_insert = 'highlight StatusLine ctermfg=white ctermbg=darkred cterm=none'
+
+    if has('syntax')
+        augroup InsertHook
+            autocmd!
+            autocmd InsertEnter * call s:StatusLine('Enter')
+            autocmd InsertLeave * call s:StatusLine('Leave')
+        augroup END
+    endif
+
+    let s:slhlcmd = ''
+    function! s:StatusLine(mode)
+        if a:mode == 'Enter'
+            silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+            silent exec g:hi_insert
+        else
+            highlight clear StatusLine
+            silent exec s:slhlcmd
+        endif
+    endfunction
+
+    function! s:GetHighlight(hi)
+        redir => hl
+        exec 'highlight '.a:hi
+        redir END
+        let hl = substitute(hl, '[\r\n]', '', 'g')
+        let hl = substitute(hl, 'xxx', '', '')
+        return hl
+    endfunction
+endfunction
+
+
+
+" =============================================================
+" =                     Common Settings.                      =
+" =============================================================
+
+function! Start_common_settings()
+    " Show line number.
+    set number
+
+    " Show status ber.
+    set laststatus=2
+
+    " Show command
+    set showcmd
+
+    " Show tab, space, new line
+    set list
+    set listchars=tab:>-,trail:_,extends:>,precedes:<,nbsp:% ",eol:↲
+    " Highlight full width space
+    function! ZenkakuSpace()
+        highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta
+    endfunction
+
+    if has('syntax')
+        augroup ZenkakuSpace
+            autocmd!
+            autocmd ColorScheme       * call ZenkakuSpace()
+            autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+        augroup END
+        call ZenkakuSpace()
+    endif
+
+    " Show line at 80 column
+    set colorcolumn =80
+    " Emphasize the cursor line
+    set cursorline
+    " Emphasize the cursor column
+    set nocursorcolumn
+
+    " A new line Enter in the normal mode
+    noremap <CR> i<CR><ESC>
+
+    " set tab
+    set tabstop=2
+    set shiftwidth=2
+    " Set indent type each file
+    au BufNewFile,BufRead *.c    set nowrap tabstop=4 shiftwidth=4 expandtab
+    au BufNewFile,BufRead *.cpp  set nowrap tabstop=4 shiftwidth=4 expandtab
+    au BufNewFile,BufRead *.cxx  set nowrap tabstop=4 shiftwidth=4 expandtab
+    au BufNewFile,BufRead *.h    set nowrap tabstop=4 shiftwidth=4 expandtab
+    au BufNewFile,BufRead *.hpp  set nowrap tabstop=4 shiftwidth=4 expandtab
+    au BufNewFile,BufRead *.hxx  set nowrap tabstop=4 shiftwidth=4 expandtab
+
+    au BufNewFile,BufRead *.java set nowrap tabstop=4 shiftwidth=4 expandtab
+
+    au BufNewFile,BufRead *.py   set nowrap tabstop=4 shiftwidth=4 expandtab
+
+    au BufNewFile,BufRead *.rs   set nowrap tabstop=4 shiftwidth=4 expandtab
+    au BufNewFile,BufRead *.rlib set nowrap tabstop=4 shiftwidth=4 expandtab
+
+    au BufNewFile,BufRead *.rb   set nowrap tabstop=2 shiftwidth=2 expandtab
+
+    au BufNewFile,BufRead *.html set nowrap tabstop=4 shiftwidth=4 expandtab
+
+    au BufNewFile,BufRead *vim* set nowrap tabstop=4 shiftwidth=4 expandtab
+
+    if has("autocmd")
+        filetype plugin indent on
+
+        autocmd BufReadPost *
+                    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+                    \   exe "normal g`\"" |
+                    \ endif
+    endif
+
+    "When enter normal mode, IME turn off
+    if has('unix')
+        function! ImInActivate()
+            call system('fcitx-remote -c')
+        endfunction
+        inoremap <ESC> <ESC>:call ImInActivate()<CR>
+        inoremap <C-{> <C-{>:call ImInActivate()<CR>
+        inoremap <C-c> <C-c>:call ImInActivate()<CR>
+        set timeoutlen=15
+    endif
+
+    if has('win32') || has ('win64')
+        let w:insert_input_active = 0
+        function FcitxLeaveInsert()
+            let s:input_status = system("fcitx-remote")
+            if s:input_status == 2
+                let w:insert_input_active = 1
+                let l:a = system("fcitx-remote -c")
+            endif
+        endfunction
+
+        function FcitxEnterInsert()
+            if !exists(w:insert_input_active)
+                let w:insert_input_active = 0
+            endif
+            if  w:insert_input_active != 0
+                "
+                let l:a = system("fcitx-remote -o")
+
+                let w:insert_input_active = 0
+            endif
+        endfunction
+
+        autocmd InsertLeave * call FcitxLeaveInsert()
+        autocmd InsertEnter * call FcitxEnterInsert()
+
+        set timeoutlen=15
+    endif
+
+    " For searting
+    set hlsearch
+    set incsearch
+    set smartcase
+    set wrapscan
+
+endfunction
+
+
+" =============================================================
+" =               From here, start main script                =
+" =============================================================
+
+if has('unix')
+    if system("which git") == ""
+        call Start_no_plugin_setting()
+    else
+        call Start_to_set_plugins()
+    endif
+endif
+
+if has('win32') || has ('win64')
+    if system("where git") == ""
+        call Start_no_plugin_setting()
+    else
+        call Start_to_set_plugins()
+    endif
+endif
+
+call Start_common_settings()
+

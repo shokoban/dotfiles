@@ -1,0 +1,65 @@
+# ref:
+# .zshrcの設定例（設定内容の説明コメント付き）
+#   (http://qiita.com/d-dai/items/d7f329b7d82e2165dab3)
+#
+# zshで究極のオペレーションを - 第3回 zsh使いこなしポイント即
+#   (http://gihyo.jp/dev/serial/01/zsh-book/0003)
+#
+# zshの設定メモ
+#   (http://webtech-walker.com/archive/2008/12/15101251.html)
+
+#
+# The explanation is almost translated in google.
+#
+
+
+# Use color of terminal
+autoload -Uz colors; colors
+
+# Display prompt as two lines and time
+PROMPT="%(?.%{${fg[green]}%}.%{${fg[red]}%})%n${reset_color}@${fg[blue]}%m${reset_color}(%*%) ${fg[yellow]}%~${reset_color}
+%# """
+# PROMPT2='[%n]> ' 
+SPROMPT="%{$fg[red]%} %R -> %r [nyae]? %{$reset_color%}"
+
+# Complement command
+autoload -Uz compinit; compinit
+
+# Do not save duplicate history
+setopt hist_ignore_dups
+# Share history with other terminals
+setopt share_history
+
+setopt histignorealldups
+
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+
+# Correct miss of command
+setopt correct
+
+# When completing, you can select with the left and right keys
+zstyle ':completion:*:default' menu select=2
+
+# Match uppercase letters with completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# After entering the command halfway, narrow down from history
+# For example, type "ls", "Ctrl + p" to go back "ls" command, "Ctrl + n" to reverse order
+autoload -Uz history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
+
+# alias
+alias ls='ls --color=auto'
+alias la='ls -a'
+alias vi='vim'
+alias vv='vim ~/.vimrc'
+alias vz='vim ~/.zshrc'
+alias vzh='vim ~/.zsh_history'
+alias sz='source ~/.zshrc'
+
+alias t='tree'
