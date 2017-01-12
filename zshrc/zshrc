@@ -13,9 +13,12 @@
 #
 
 
+# Change the reaction like bash when entering command not installed
+# Read zsh_command_not_found file
+source /etc/zsh_command_not_found
+
 # Use color of terminal
 autoload -Uz colors; colors
-
 # Display prompt as two lines and time
 PROMPT="%(?.%{${fg[green]}%}.%{${fg[red]}%})%n${reset_color}@${fg[blue]}%m${reset_color}(%*%) ${fg[yellow]}%~${reset_color}
 %# """
@@ -63,3 +66,4 @@ alias vzh='vim ~/.zsh_history'
 alias sz='source ~/.zshrc'
 
 alias t='tree'
+
