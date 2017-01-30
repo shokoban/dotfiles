@@ -26,7 +26,7 @@ endif
 function! Start_to_set_plugins()
     " Set directorys of being neobundle.vim
     let s:neobundle_dir = expand('~/.vim/plugins/neobundle')
-    let s:neobundle_repo_dir = s:neobundle_dir . '/repos/github.com/Shougo/neobundle.vim'
+    let s:neobundle_repo_dir = s:neobundle_dir.'/repos/github.com/Shougo/neobundle.vim'
 
     " Execute git clone automatically, if neobundle.vim do not exist. 
     if !isdirectory(s:neobundle_repo_dir)
@@ -49,7 +49,7 @@ function! Start_to_set_plugins()
                 \ 'colorscheme': 'landscape'
                 \ }
     " For lightline.vim. use 256 colors.
-    set t_Co=256
+    " set t_Co=256
     " Type :NERDTree to run
     NeoBundle 'scrooloose/nerdtree'
     " Auto
@@ -60,7 +60,7 @@ function! Start_to_set_plugins()
     "   \Exanple: :EasyAlign *=
     "             :EasyAlign **=
     NeoBundle 'junegunn/vim-easy-align'
-    " Auto 
+    " Auto
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'Shougo/neosnippet-snippets'
     NeoBundle "Shougo/neocomplete.vim"
@@ -82,10 +82,6 @@ endfunction
 " =============================================================
 
 function! Start_no_plugin_setting()
-    " Show color of syntax
-    syntax on
-    highlight Comment ctermfg =darkblue
-
     " Set information in statusline
     set statusline =%<%F\ %m%r%h%w%=[%n][%{&ff}][%{(&fenc!=''?&fenc:&enc)}]%y[%l/%L]
 
@@ -136,6 +132,11 @@ function! Start_common_settings()
 
     " Show command
     set showcmd
+
+    " Show color of syntax
+    set t_Co=256
+    syntax on
+    highlight Comment ctermfg =240
 
     " Show tab, space, new line
     set list
