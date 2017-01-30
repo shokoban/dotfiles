@@ -62,4 +62,7 @@ alias vz='vim ~/.zshrc'
 alias vzh='vim ~/.zsh_history'
 alias sz='source ~/.zshrc'
 
+alias reboot='sudo reboot'
+alias shutdown='sudo shutdown -h now'
+
 alias t='tree'
