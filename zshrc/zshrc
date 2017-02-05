@@ -57,16 +57,27 @@ bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
 
 # alias
+alias update='sh ~/environment/update.sh'
+
 alias ls='ls --color=auto'
 alias la='ls -a'
+alias ll='ls -l'
+
 alias vi='vim'
 alias vv='vim ~/.vimrc'
+alias svi='source ~/.vimrc'
+
 alias vz='vim ~/.zshrc'
 alias vzh='vim ~/.zsh_history'
 alias sz='source ~/.zshrc'
 
 alias reboot='sudo reboot'
+alias REBOOT='sudo reboot'
 alias shutdown='sudo shutdown -h now'
+alias SHUTDOWN='sudo shutdown -h now'
+
+alias clang='clang -Wall'
 
 alias t='tree'
+alias c='clear'
 

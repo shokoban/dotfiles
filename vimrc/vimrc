@@ -1,16 +1,14 @@
-﻿" =============================================================
-" = This script is aiming for cross-platform, but I have not  =
-" = been able to complete. Although it works normally on ubu- =
-" = ntu OS, it does not work properly on windows OS. Please   =
-" = be careful when using this .vimrc.                        =
-" =============================================================
+﻿""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" This script is aiming for cross-platform, but I have not  "
+"" been able to complete. Although it works normally on ubu- "
+"" ntu OS, it does not work properly on windows OS. Please   "
+"" be careful when using this .vimrc.                        "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-
-
-" =============================================================
-" =                        Initialize.                        =
-" =============================================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""                        Initialize.                        "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has('vim_starting')
     filetype off
@@ -19,16 +17,18 @@ endif
 
 
 
-" =============================================================
-" =                 Neobundle.vim Settings.                   =
-" =============================================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""                 Neobundle.vim Settings.                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 
 function! Start_to_set_plugins()
     " Set directorys of being neobundle.vim
     let s:neobundle_dir = expand('~/.vim/plugins/neobundle')
     let s:neobundle_repo_dir = s:neobundle_dir.'/repos/github.com/Shougo/neobundle.vim'
 
-    " Execute git clone automatically, if neobundle.vim do not exist. 
+    " Execute git clone automatically, if neobundle.vim do not exist.
     if !isdirectory(s:neobundle_repo_dir)
         execute '!git clone https://github.com/Shougo/neobundle.vim' s:neobundle_repo_dir
     endif
@@ -48,8 +48,6 @@ function! Start_to_set_plugins()
     let g:lightline = {
                 \ 'colorscheme': 'landscape'
                 \ }
-    " For lightline.vim. use 256 colors.
-    " set t_Co=256
     " Type :NERDTree to run
     NeoBundle 'scrooloose/nerdtree'
     " Auto
@@ -77,9 +75,9 @@ endfunction
 
 
 
-" =============================================================
-" =                    No plugin Settings.                    =
-" =============================================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""                    No plugin Settings.                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! Start_no_plugin_setting()
     " Set information in statusline
@@ -119,9 +117,9 @@ endfunction
 
 
 
-" =============================================================
-" =                     Common Settings.                      =
-" =============================================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""                     Common Settings.                      "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! Start_common_settings()
     " Show line number.
@@ -140,7 +138,7 @@ function! Start_common_settings()
 
     " Show tab, space, new line
     set list
-    set listchars=tab:>-,trail:_,extends:>,precedes:<,nbsp:% ",eol:↲
+    set listchars=tab:>-,trail:_,extends:>,precedes:<,nbsp:%,eol:↲
     " Highlight full width space
     function! ZenkakuSpace()
         highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta
@@ -154,6 +152,9 @@ function! Start_common_settings()
         augroup END
         call ZenkakuSpace()
     endif
+
+    " Remove extra space at end of line
+    autocmd BufWritePre * :%s/\s\+$//ge
 
     " Show line at 80 column
     set colorcolumn =80
@@ -246,9 +247,9 @@ function! Start_common_settings()
 endfunction
 
 
-" =============================================================
-" =               From here, start main script                =
-" =============================================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""               From here, start main script                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has('unix')
     if system("which git") == ""
