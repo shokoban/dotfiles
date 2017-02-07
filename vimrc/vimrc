@@ -42,7 +42,6 @@ function! Start_to_set_plugins()
 
     " Write plugins that you want to install below.
     NeoBundle 'Shougo/unite.vim'
-
     " Auto
     NeoBundle 'itchyny/lightline.vim'
     let g:lightline = {
