@@ -3,6 +3,7 @@
 alias update='sh ~/environment/update.sh'
 # for ls
 alias ls='ls --color=auto'
+alias l='ls'
 alias la='ls -a'
 alias ll='ls -l'
 # for vim
