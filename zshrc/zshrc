@@ -1,17 +1,13 @@
 # ref:
 # .zshrcの設定例（設定内容の説明コメント付き）
 #   (http://qiita.com/d-dai/items/d7f329b7d82e2165dab3)
-#
 # zshで究極のオペレーションを - 第3回 zsh使いこなしポイント即
 #   (http://gihyo.jp/dev/serial/01/zsh-book/0003)
-#
 # zshの設定メモ
 #   (http://webtech-walker.com/archive/2008/12/15101251.html)
-
 #
 # The explanation is almost translated in google.
 #
-
 
 # Change the reaction like bash when entering command not installed
 # Read zsh_command_not_found file
