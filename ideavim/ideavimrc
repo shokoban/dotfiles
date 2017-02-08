@@ -5,90 +5,19 @@
 " settting character code
 set encoding=utf-8
 
+
 " ===========================================================================
 " =                                syntax                                   =
 " ===========================================================================
+
 
 " ===========================================================================
 " =                          look and feel                                  =
 " ===========================================================================
 
-" 行番号を表示する
-set number
-
-" 80文字目にラインを入れる
-set colorcolumn =80
-
-" カーソル行を強調する
-set cursorline
-" カーソル列を強調しない
-set nocursorcolumn
-
 "スクロールする時に下が見えるようにする
 set scrolloff=3
 
-"タブ、空白、改行の可視化
-set list
-set listchars=tab:>-,trail:_,extends:>,precedes:<,nbsp:% ",eol:↲
-"全角スペースをハイライト表示
-function! ZenkakuSpace()
-    highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta
-endfunction
-
-if has('syntax')
-     augroup ZenkakuSpace
-         autocmd!
-         autocmd ColorScheme       * call ZenkakuSpace()
-         autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
-     augroup END
-     call ZenkakuSpace()
-endif
-
-" ノーマルモードに入ったら日本語入力を解除する
-let w:insert_input_active = 0
-function FcitxLeaveInsert()
-    let s:input_status = system("fcitx-remote")
-    if s:input_status == 2
-        let w:insert_input_active = 1
-        let l:a = system("fcitx-remote -c")
-    endif
-endfunction
-
-function FcitxEnterInsert()
-    if !exists(w:insert_input_active)
-        let w:insert_input_active = 0
-    endif
-    if w:insert_input_active != 0
-        let l:a = system("fcitx-remote -o")
-        let w:insert_input_active = 0
-    endif
-endfunction
-
-autocmd InsertLeave * call FcitxLeaveInsert()
-autocmd InsertEnter * call FcitxEnterInsert()
-set timeoutlen=15
-
-" タブを空白に置換
-"set expandtab
-
-" ウィンドウ幅で行を折り返す
-set wrap
-" 括弧入力時に対応する括弧を強調する
-set showmatch
-
-" 検索語にマッチした単語をハイライトする
-set hlsearch
-" インクリメンタルサーチを使う
-"set incsearch
-" 検索時に大文字小文字を区別しない
-"set ignorecase
-" 検索語に大文字を混ぜると検索時に大文字を区別する
-"set smartcase
-" 検索時に最後まで行ったら最初に戻る
-set wrapscan
-
-" 検索履歴を50個残す
-set history =50
 
 " ===========================================================================
 " =                           status line                                   =
@@ -97,36 +26,6 @@ set history =50
 " 入力中のコマンドを表示する
 set showcmd
 
-" 挿入モード時、ステータスラインの色を変更
-let g:hi_insert = 'highlight StatusLine ctermfg=white ctermbg=darkred cterm=none'
-
-if has('syntax')
-    augroup InsertHook
-        autocmd!
-        autocmd InsertEnter * call s:StatusLine('Enter')
-        autocmd InsertLeave * call s:StatusLine('Leave')
-    augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
-    if a:mode == 'Enter'
-        silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-        silent exec g:hi_insert
-    else
-        highlight clear StatusLine
-        silent exec s:slhlcmd
-    endif
-endfunction
-
-function! s:GetHighlight(hi)
-    redir => hl
-        exec 'highlight '.a:hi
-    redir END
-    let hl = substitute(hl, '[\r\n]', '', 'g')
-    let hl = substitute(hl, 'xxx', '', '')
-    return hl
-endfunction
 
 " ===========================================================================
 " =                           normal mode                                   =
@@ -135,7 +34,9 @@ endfunction
 "ノーマルモード中にEnterで改行
 noremap <CR> i<CR><ESC>
 
+
 " ===========================================================================
 " =                           insert mode                                   =
 " ===========================================================================
+
 
