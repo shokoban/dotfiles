@@ -32,7 +32,7 @@ if has('syntax')
 endif
 
 " Set tab
-source ~/dotfiles/vimrc/tabstop.vim
+source ~/dotfiles/vim/vimrc/tabstop.vim
 
 " Remove extra space at end of line
 autocmd BufWritePre * :%s/\s\+$//ge

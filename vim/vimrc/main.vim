@@ -14,7 +14,7 @@ if has('vim_starting')
     set encoding =utf-8
 endif
 
-let $path_to_vimrc = '~/dotfiles/vimrc'
+let $path_to_vimrc = '~/dotfiles/vim/vimrc'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
