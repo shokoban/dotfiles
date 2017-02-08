@@ -26,5 +26,5 @@ alias clang++='clang++ -Wall'
 alias gcc='gcc -Wall'
 alias g++='g++ -Wall'
 # alse
-alias t='tree'
+alias t='tree -a'
 alias c='clear'
