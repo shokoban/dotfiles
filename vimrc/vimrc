@@ -9,11 +9,12 @@
 ""                        Initialize.                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('vim_starting')
+    " Is this necessary?
     filetype off
     set encoding =utf-8
 endif
 
-let s:location_of_vimrc = '~/dotfiles/vimrc'
+let $path_to_vimrc = '~/dotfiles/vimrc'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -22,19 +23,17 @@ let s:location_of_vimrc = '~/dotfiles/vimrc'
 
 if has('unix')
     if system("which git") == ""
-        source ~/dotfiles/vimrc/no_plugin_setting.vim
+        source $path_to_vimrc/no_plugin_setting.vim
     else
-        source ~/dotfiles/vimrc/plugin_setting.vim
+        source $path_to_vimrc/plugin_setting.vim
     endif
-endif
-
-if has('win32') || has ('win64')
+elseif has('win32') || has ('win64')
     if system("where git") == ""
-        source ~/dotfiles/vimrc/no_plugin_setting.vim
+        source $path_to_vimrc/no_plugin_setting.vim
     else
-        source ~/dotfiles/vimrc/plugin_setting.vim
+        source $path_to_vimrc/plugin_setting.vim
     endif
 endif
 
-source ~/dotfiles/vimrc/commmon_setting.vim
+source $path_to_vimrc/commmon_setting.vim
 
