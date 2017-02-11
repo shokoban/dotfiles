@@ -16,7 +16,6 @@ alias vza='vim ~/dotfiles/zshrc/zsh_alias'
 alias sz='source ~/.zshrc'
 # for ideavim
 alias viv='vim ~/.ideavimrc'
-alias siv='source ~/.ideavimrc'
 # for shutdown
 alias reboot='sudo reboot'
 alias shutdown='sudo shutdown -h now'
