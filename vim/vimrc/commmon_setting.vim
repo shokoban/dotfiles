@@ -16,7 +16,11 @@ highlight Comment ctermfg =240
 
 " Show tab, space, new line
 set list
-set listchars=tab:>-,trail:_,extends:>,precedes:<,nbsp:%,eol:↲
+set listchars=tab:>-,trail:_,extends:>,precedes:<,nbsp:%
+" add charcter of new line
+"set listchars+=eol:↲
+set listchars+=eol:￬
+
 " Highlight full width space
 function! ZenkakuSpace()
     highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta
